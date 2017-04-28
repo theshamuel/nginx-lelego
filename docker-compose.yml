@@ -1,0 +1,25 @@
+version: '2'
+services:
+    nginx-le:
+        build: .
+        image: theshamuel/nginx-lelego:latest
+        hostname: nginx-lelego
+        restart: always
+        container_name: nginx-lelego
+
+        logging:
+          driver: json-file
+          options:
+              max-size: "10m"
+              max-file: "5"
+
+        volumes:
+            - ./etc/service-template.conf:/etc/nginx/service-ssl.conf
+
+        ports:
+            - "80:80"
+            - "443:443"
+
+        environment:
+            - EMAIL=email@email.com
+            - DOMAIN=domain.com
