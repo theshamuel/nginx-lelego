@@ -14,7 +14,7 @@ services:
               max-file: "5"
 
         volumes:
-            - ./etc/service-template.conf:/etc/nginx/service-ssl.conf
+            - ./conf/service-template.conf:/etc/nginx/service-ssl.conf
 
         ports:
             - "80:80"

@@ -14,7 +14,7 @@ ENV GOPATH /go
      apk del go git && \
      rm -rf /var/cache/apk/* && \
      rm -rf /go && \
+     rm /etc/nginx/conf.d/default.conf && \
      chmod +x /entrypoint.sh
-#     rm /etc/nginx/conf.d/default.conf
 
 CMD ["/entrypoint.sh"]
