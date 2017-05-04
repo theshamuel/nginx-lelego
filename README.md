@@ -1,5 +1,5 @@
 ## nginx-lelego - nginx with let's encrypt certificate
-Nginx image (alpine-stable installed) with [Let's Encrypt](https://letsencrypt.org "Let's Encrypt Homepage").
+Nginx image (alpine 3.5 installed) with [Let's Encrypt](https://letsencrypt.org "Let's Encrypt Homepage").
 Let's Encrypt client which gets certificates is [LEGO](https://github.com/xenolf/lego "GitHub repository")
 
 Autobuilded [image](https://hub.docker.com/r/theshamuel/nginx-lelego/) on docker-hub.
