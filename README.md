@@ -10,4 +10,4 @@ Autobuilded [image](https://hub.docker.com/r/theshamuel/nginx-lelego/) on docker
    * `EMAIL` - email for authorisation Let's Encrypt client (ex. email@email.com)
    * `DOMAIN` - domain which gets certificate (ex. domain.com)
    
-2. Execute command `docker run --name nginx-shamuel --restart=always --env EMAIL=theshamuel@gmail.com --env DOMAIN=shamuel.com -p 80:80 -p 443:443 theshamuel/nginx-lelego` or `docker-compose up` after clone the repository
+2. Execute command `docker run --name nginx-shamuel --restart=always --env EMAIL=email@email.com --env DOMAIN=domain.com -p 80:80 -p 443:443 theshamuel/nginx-lelego` or `docker-compose up` after clone the repository
