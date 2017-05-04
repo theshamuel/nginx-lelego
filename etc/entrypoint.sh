@@ -2,12 +2,12 @@
 echo "Configuring nginx..."
 
 #Generate Diffie-Hellman key
-if [ ! -f /etc/nginx/ssl/dh4096.pem ]; then
+if [ ! -f /etc/nginx/ssl/dh2048.pem ]; then
     mkdir -p /etc/nginx/ssl
     cd /etc/nginx/ssl
-    openssl dhparam -out dh4096.pem 4096
-    chmod 600 dh4096.pem
-    echo "Successful created dh4096.pem"
+    openssl dhparam -out dh2048.pem 2048
+    chmod 600 dh2048.pem
+    echo "Successful created dh2048.pem"
 fi
 
 
