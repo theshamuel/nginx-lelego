@@ -1,6 +1,8 @@
 FROM nginx:1.13-alpine
 
 ADD conf/nginx.conf /etc/nginx/nginx.conf
+ADD conf/service-template.conf /etc/nginx/service-ssl.conf
+
 ADD etc/entrypoint.sh /entrypoint.sh
 ENV GOPATH /go
 
