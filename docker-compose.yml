@@ -1,6 +1,6 @@
 version: '2'
 services:
-    nginx-le:
+    nginx-lelego:
         build: .
         image: theshamuel/nginx-lelego:latest
         hostname: nginx-lelego
@@ -12,9 +12,6 @@ services:
           options:
               max-size: "10m"
               max-file: "5"
-
-        volumes:
-            - ./conf/service-template.conf:/etc/nginx/service-ssl.conf
 
         ports:
             - "80:80"
