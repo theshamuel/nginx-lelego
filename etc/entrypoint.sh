@@ -20,8 +20,8 @@ echo "your SSL_KEY=${FILE_KEY}"
 echo "your SSL_CRT=${FILE_CRT}"
 cp -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
 
-sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/service.conf
-sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service.conf
+sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/service-ssl.conf
+sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service-ssl.conf
 
 
 (
