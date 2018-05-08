@@ -29,14 +29,14 @@ sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service-ssl.conf
 (
 while :
 do
-  mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
+  mv -v /etc/nginx/conf.d/etc/nginx/conf.d.old
   sleep 10
   if [ ! -f /etc/nginx/ssl/certificates/${DOMAIN}.key ]; then
     lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 run #Generate new certificates
   else
     lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 renew #Update certificates
   fi
-  mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d
+  mv -v /etc/nginx/conf.d.old/etc/nginx/conf.d
   echo "Restart nginx..."
   nginx -s reload
   sleep 80d
