@@ -6,7 +6,8 @@ services:
         hostname: nginx-lelego
         restart: always
         container_name: nginx-lelego
-
+        volumes:
+            - ../shamuel.com:/usr/share/nginx/html:ro
         logging:
           driver: json-file
           options:
@@ -18,5 +19,9 @@ services:
             - "443:443"
 
         environment:
+            - AWS_REGION=
+            - AWS_ACCESS_KEY_ID=
+            - AWS_SECRET_ACCESS_KEY=
+            - LETSENCRYPT=false
             - EMAIL=email@email.com
             - DOMAIN=domain.com
