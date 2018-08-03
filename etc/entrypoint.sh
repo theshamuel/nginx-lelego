@@ -33,17 +33,12 @@ mv -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
 sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/service-ssl.conf
 sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service-ssl.conf
 
-sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/shamuel.com.conf
-sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/shamuel.com.conf
-
-sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/blog.shamuel.com.conf
-sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/blog.shamuel.com.conf
 (
 while :
 do
   mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
   sleep 10
-  if [ ! -f /etc/nginx/ssl/certificates/${DOMAIN}.key ]; then
+  if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
     lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
   else
     lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
