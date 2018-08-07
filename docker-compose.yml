@@ -23,5 +23,6 @@ services:
             - AWS_ACCESS_KEY_ID=
             - AWS_SECRET_ACCESS_KEY=
             - LETSENCRYPT=false
+            - FIRSTSTART=true
             - EMAIL=email@email.com
             - DOMAIN=domain.com
