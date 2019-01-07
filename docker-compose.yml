@@ -1,25 +1,28 @@
 version: '2'
 services:
-    nginx-le:
+    nginx-lelego:
         build: .
         image: theshamuel/nginx-lelego:latest
         hostname: nginx-lelego
         restart: always
         container_name: nginx-lelego
-
+        volumes:
+            - ../shamuel.com:/usr/share/nginx/html:ro
         logging:
           driver: json-file
           options:
               max-size: "10m"
               max-file: "5"
 
-        volumes:
-            - ./conf/service-template.conf:/etc/nginx/service-ssl.conf
-
         ports:
             - "80:80"
             - "443:443"
 
         environment:
+            - AWS_REGION=
+            - AWS_ACCESS_KEY_ID=
+            - AWS_SECRET_ACCESS_KEY=
+            - LETSENCRYPT=false
+            - FIRSTSTART=true
             - EMAIL=email@email.com
             - DOMAIN=domain.com

@@ -1,5 +1,13 @@
 #!/bin/sh
 echo "Configuring nginx..."
+echo "LETSENCRYPT=${LETSENCRYPT:=$LETSENCRYPT}"
+
+if [ ${LETSENCRYPT} != "true" ]; then
+    echo "Cerificates is disabled"
+    sed -i "s|return 301 https://\$host\$request_uri|index index.html index.htm|g" /etc/nginx/nginx.conf
+    nginx -g "daemon off;"
+    return 1
+fi
 
 mkdir -p /etc/nginx/conf.d
 
@@ -16,25 +24,24 @@ fi
 # Set key paths
 echo "your domain=${DOMAIN:=$DOMAIN}"
 echo "your email=${EMAIL:=$EMAIL}"
-FILE_KEY=/etc/nginx/ssl/certificates/${DOMAIN}.key
-FILE_CRT=/etc/nginx/ssl/certificates/${DOMAIN}.crt
+FILE_KEY=/etc/nginx/ssl/certificates/_.${DOMAIN}.key
+FILE_CRT=/etc/nginx/ssl/certificates/_.${DOMAIN}.crt
 echo "your SSL_KEY=${FILE_KEY}"
 echo "your SSL_CRT=${FILE_CRT}"
-cp -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
+mv -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
 
 sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/service-ssl.conf
 sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service-ssl.conf
 
-mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
 (
 while :
 do
+  mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
   sleep 10
-
-  if [ ! -f /etc/nginx/ssl/certificates/${DOMAIN}.key ]; then
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 run #Generate new certificates
+  if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
   else
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 --tls=:444 renew #Update certificates
+    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
   fi
   mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d
   echo "Restart nginx..."

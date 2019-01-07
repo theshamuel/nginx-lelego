@@ -11,3 +11,5 @@ Autobuilded [image](https://hub.docker.com/r/theshamuel/nginx-lelego/) on docker
    * `DOMAIN` - domain which gets certificate (ex. domain.com)
    
 2. Execute command `docker run --name nginx-shamuel --restart=always --env EMAIL=email@email.com --env DOMAIN=domain.com -p 80:80 -p 443:443 theshamuel/nginx-lelego` or `docker-compose up` after clone the repository
+
+_Thanks [umputun/nginx-le](https://github.com/umputun/nginx-le) for right ideas_
