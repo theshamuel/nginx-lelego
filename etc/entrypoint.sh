@@ -29,7 +29,7 @@ FILE_CRT=/etc/nginx/ssl/certificates/_.${DOMAIN}.crt
 echo "your SSL_KEY=${FILE_KEY}"
 echo "your SSL_CRT=${FILE_CRT}"
 
-if [ -z /etc/nginx/service-ssl.conf ]; then
+if [ -f /etc/nginx/service-ssl.conf ]; then
     mv -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
 fi
 
