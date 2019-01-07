@@ -28,7 +28,10 @@ FILE_KEY=/etc/nginx/ssl/certificates/_.${DOMAIN}.key
 FILE_CRT=/etc/nginx/ssl/certificates/_.${DOMAIN}.crt
 echo "your SSL_KEY=${FILE_KEY}"
 echo "your SSL_CRT=${FILE_CRT}"
-mv -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
+
+if [ -f /etc/nginx/service-ssl.conf ]; then
+    mv -f /etc/nginx/service-ssl.conf /etc/nginx/conf.d/service-ssl.conf
+fi
 
 sed -i "s|FILE_KEY|${FILE_KEY}|g" /etc/nginx/conf.d/service-ssl.conf
 sed -i "s|FILE_CRT|${FILE_CRT}|g" /etc/nginx/conf.d/service-ssl.conf
