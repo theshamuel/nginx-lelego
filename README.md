@@ -8,7 +8,7 @@ Autobuilded [image](https://hub.docker.com/r/theshamuel/nginx-lelego/) on docker
 
 ## TUTORIAL
 
-1. Set enviroment varibles in docker-compose.yml
+1. Set environment variables in docker-compose.yml
    * `EMAIL` - email for authorisation Let's Encrypt client (ex. email@email.com)
    * `DOMAIN` - domain which gets certificate (ex. domain.com)
    
