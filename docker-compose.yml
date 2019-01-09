@@ -26,3 +26,4 @@ services:
             - FIRSTSTART=true
             - EMAIL=email@email.com
             - DOMAIN=domain.com
+            - DNS=

@@ -42,9 +42,17 @@ do
   mv -v /etc/nginx/conf.d /etc/nginx/conf.d.old
   sleep 10
   if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 run #Generate new certificates
+    if [ ${DNS} != "" ]
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="${DNS}" --http=:81 run #Generate new certificates
+    else
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 run #Generate new certificates
+    fi  
   else
-    lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="route53" --http=:81 renew #Update certificates
+    if [ ${DNS} != "" ]
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="${DNS}" --http=:81 renew #Update certificates
+    else
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 renew #Update certificates
+    fi
   fi
   mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d
   echo "Restart nginx..."
