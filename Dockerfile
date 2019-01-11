@@ -28,7 +28,7 @@ ENV GOPATH /go
      apt-get install -y ca-certificates && \
      apt-get install -y curl && \
     #  apk add -U git && \
-     apt-get instal -y libc-dev && \
+     apt-get install -y libc-dev && \
     #  apk add -U go && \
      cd /tmp && \
      curl -LkO https://github.com/xenolf/lego/releases/download/v1.2.1/lego_v1.2.1_linux_amd64.tar.gz && \
