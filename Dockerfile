@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginx:1.15.8-alpine
 
 ADD conf/nginx.conf /etc/nginx/nginx.conf
 ADD conf/service-template.conf /etc/nginx/service-ssl.conf
