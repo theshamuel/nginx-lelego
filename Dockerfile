@@ -6,11 +6,29 @@ ADD conf/service-template.conf /etc/nginx/service-ssl.conf
 ADD etc/entrypoint.sh /entrypoint.sh
 ENV GOPATH /go
 
- RUN apk add -U openssl && \
-     apk add -U ca-certificates && \
-     apk add -U curl && \
+#  RUN apk add -U openssl && \
+#      apk add -U ca-certificates && \
+#      apk add -U curl && \
+#     #  apk add -U git && \
+#      apk add -U libc-dev && \
+#     #  apk add -U go && \
+#     cd /tmp && \
+#     curl -LkO https://github.com/xenolf/lego/releases/download/v1.2.1/lego_v1.2.1_linux_amd64.tar.gz && \
+#     tar -xvf /tmp/lego_v1.2.1_linux_amd64.tar.gz -C /usr/bin/ && \
+#     #  go get -u github.com/xenolf/lego && \
+#     #  cd /go/src/github.com/xenolf/lego && \
+#     #  go build -o /usr/bin/lego . && \
+#     #  apk del go git && \
+#     #  rm -rf /var/cache/apk/* && \
+#     #  rm -rf /go && \
+#      rm -rf /etc/nginx/conf.d/* && \
+#      chmod +x /entrypoint.sh
+ RUN apt-get update && \
+     apt-get install -y openssl && \
+     apt-get install -y ca-certificates && \
+     apt-get install -y curl && \
     #  apk add -U git && \
-     apk add -U libc-dev && \
+     apt-get install -y libc-dev && \
     #  apk add -U go && \
     cd /tmp && \
     curl -LkO https://github.com/xenolf/lego/releases/download/v2.0.1/lego_v2.0.1_linux_amd64.tar.gz && \
@@ -21,7 +39,7 @@ ENV GOPATH /go
     #  apk del go git && \
     #  rm -rf /var/cache/apk/* && \
     #  rm -rf /go && \
+     apt-get clean && \
      rm -rf /etc/nginx/conf.d/* && \
      chmod +x /entrypoint.sh
-
 CMD ["/entrypoint.sh"]
