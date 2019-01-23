@@ -19,11 +19,15 @@ services:
             - "443:443"
 
         environment:
+            #AWS KEYS
             - AWS_REGION=
             - AWS_ACCESS_KEY_ID=
             - AWS_SECRET_ACCESS_KEY=
+            #VSCALE TOKEN
+            - VSCALE_API_TOKEN=
+            #DO TOKEN
+            - DO_AUTH_TOKEN=
             - LETSENCRYPT=false
-            - FIRSTSTART=true
             - EMAIL=email@email.com
             - DOMAIN=domain.com
             - DNS=

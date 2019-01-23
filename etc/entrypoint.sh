@@ -43,15 +43,24 @@ do
   sleep 10
   if [ ! -f /etc/nginx/ssl/certificates/_.${DOMAIN}.key ]; then
     if [ ${DNS} != "" ]; then
-      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="${DNS}" --http=:81 run #Generate new certificates
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --dns="${DNS}" --http.port=81 run #Generate new certificates
     else
-      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 run #Generate new certificates
-    fi  
+      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --http.port=81 run #Generate new certificates
+    fi
   else
-    if [ ${DNS} != "" ]; then
-      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --dns="${DNS}" --http=:81 renew #Update certificates
-    else
-      lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --domains="www.${DOMAIN}" --http=:81 renew #Update certificates
+    #Check valid date of existed certificate
+    expired_date_str_crt=$(openssl x509 -in ${FILE_CRT} -noout -enddate | awk '{split($0,a,"="); print a[2]}')
+    expired_date_crt=$(date -d "${expired_date_str_crt}")
+    now_before_2_weeks=$(date -d "-14 days")
+    echo Expired date of certificate = $expired_date_crt
+    echo 2 weeks before current date = $now_before_2_weeks
+    if [ "$now_before_2_weeks" "<" "$expired_date_crt" ];
+    then
+      if [ ${DNS} != "" ]; then
+        lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --dns="${DNS}" --http.port=81 renew #Update certificates
+      else
+        lego -a --path=/etc/nginx/ssl --email="${EMAIL}" --domains="*.${DOMAIN}" --domains="${DOMAIN}" --http.port=81 renew #Update certificates
+      fi
     fi
   fi
   mv -v /etc/nginx/conf.d.old /etc/nginx/conf.d

@@ -13,8 +13,8 @@ ENV GOPATH /go
      apk add -U libc-dev && \
     #  apk add -U go && \
     cd /tmp && \
-    curl -LkO https://github.com/xenolf/lego/releases/download/v1.2.1/lego_v1.2.1_linux_amd64.tar.gz && \
-    tar -xvf /tmp/lego_v1.2.1_linux_amd64.tar.gz -C /usr/bin/ && \
+    curl -LkO https://github.com/xenolf/lego/releases/download/v2.0.1/lego_v2.0.1_linux_amd64.tar.gz && \
+    tar -xvf /tmp/lego_v2.0.1_linux_amd64.tar.gz -C /usr/bin/ && \
     #  go get -u github.com/xenolf/lego && \
     #  cd /go/src/github.com/xenolf/lego && \
     #  go build -o /usr/bin/lego . && \
